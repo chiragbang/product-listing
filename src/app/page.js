@@ -1,95 +1,56 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import "./Product.css";
+import Image from 'next/image';
+import { FaStar } from "react-icons/fa";
+import Link from 'next/link';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
+const products = [
+    { id: 1, routeName: "nike", name: "Nike AirFlex Stride", price: 4999, discount: 7999, rating: 4, image: "/shoe1.png" },
+    { id: 2, routeName: "adidas", name: "Adidas UltraBoost", price: 5999, discount: 8999, rating: 4.5, image: "/shoe2.png" },
+    { id: 3, routeName: "puma", name: "Puma Ignite Blaze", price: 3999, discount: 6999, rating: 3.5, image: "/shoe3.png" },
+    { id: 4, routeName: "reebok", name: "Reebok FlexStride", price: 4599, discount: 7599, rating: 4, image: "/shoe4.png" },
+    { id: 5, routeName: "hrx", name: "HRX Velocity Boost", price: 5299, discount: 8299, rating: 4.5, image: "/shoe5.png" },
+    { id: 6, routeName: "converse", name: "Converse AllStar Elite", price: 6499, discount: 8699, rating: 4.5, image: "/shoe6.png" },
+
+];
+
+const Page = () => {
+    return (
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <h1 style={{ fontSize: "4rem", textAlign: "center" }}>Products List</h1>
+            <hr />
+
+            <div className='product-container'>
+                {products.map(product => (
+                    <div key={product.id} className='product-card'>
+                        <p className='top'>Hot Products</p>
+                        {/* <Link href="/productDetails/product"> */}
+                        <Link href={`/productDetails/${product.routeName}`}>
+
+                            <Image width={400} height={300} src={product.image} />
+                        </Link>
+                        <hr />
+                        <h2>{product.name}</h2>
+                        <div className='pricing'>
+                            <h3>Rs. {product.price}/- <span><del>Rs.{product.discount}</del></span></h3>
+
+                            <div className='rating'>
+                                {Array.from({ length: Math.round(product.rating) }, (_, index) => (
+                                    <FaStar key={index} />
+                                ))}
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div className='shop-buttons'>
+                            <button>Shop Now</button>
+                            <button>Add to Cart</button>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    )
 }
+
+export default Page;
